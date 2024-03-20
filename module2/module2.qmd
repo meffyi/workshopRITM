@@ -1,0 +1,15 @@
+---
+title: "SESSION 2 - Introduction to the CGPS tools"
+---
+
+### Module Leads: Georgina Lewis-Woodhouse and Emmanuelle Kumaran 
+
+The aim of this module is to introduce you to the tools developed by CGPS.
+
+You can find the material for this session at the following links:
+
+-   [Epicollect](https://docs.google.com/presentation/d/1k8yuwfrisy5O1C5yhuQhgEbqifVg3wZaX4nw4GLxXqI/edit#slide=id.g2bc00358fc4_0_51)
+
+-   [Data-flo](https://docs.google.com/presentation/d/1Cu6LZTQH9AW4R1vW3zHDw8aQLGJUkj962JD-DCDpCz0/edit#slide=id.g1ef4ded195f_0_927)
+
+-   [Microreact](https://docs.google.com/presentation/d/1JcE8ybqYMMa-kf7_KfVBiDARZEYcPtd0ZmSAvULY4Dg/edit#slide=id.g2b4f7ac16ed_0_46)

@@ -1,0 +1,21 @@
+---
+title: "Index"
+---
+
+This page is a repository for training resources designed and developed for the Pathogen Genomics Week, Oxford, March 2024.
+
+Link to [Digital Epidemiology](Syllabus.qmd)
+
+Link to [Bioinformatics](bioinformatics.qmd)
+
+Link to [Trim, Assembly and QC](module3/module3.qmd)
+
+Link to [Pathogenwatch](module4/module4.qmd)
+
+Link to [Data-flo](module5/module5.qmd)
+
+Link to [Microreact](module6/module6.qmd)
+
+Link to [Resources](resources.qmd)
+
+***The materials provided in this repository are FREE to use.*** ***This work is licensed under a Creative Commons Attribution 4.0 International License. Reuse is encouraged with acknowledgement.***

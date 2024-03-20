@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Pathogen Genomics Week - March 2024 - SESSION 6 - Data visualisation and Interpretation with Microreact</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../img/cgps.jpg" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Pathogen Genomics Week - March 2024</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../agenda.html" rel="" target="">
+ <span class="menu-text">Agenda</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../Syllabus.html" rel="" target="">
+ <span class="menu-text">Digital Epidemiology</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../bioinformatics.html" rel="" target="">
+ <span class="menu-text">Bioinformatics</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-training-materials" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Training materials</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-training-materials">    
+        <li>
+    <a class="dropdown-item" href="../module1/module1.html" rel="" target="">
+ <span class="dropdown-text">SESSION 1 - Digital Epidemiologist’s Toolbox - theory</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../module2/module2.html" rel="" target="">
+ <span class="dropdown-text">SESSION 2 - Introduction to the CGPS tools</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../module3/module3.html" rel="" target="">
+ <span class="dropdown-text">SESSION 3 - Introduction to Trimming, Assembly and QC</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../module4/module4.html" rel="" target="">
+ <span class="dropdown-text">SESSION 4 - Genome Analysis with Pathogenwatch</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../module5/module5.html" rel="" target="">
+ <span class="dropdown-text">SESSION 5 - Data integration with Data-flo</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../module6/module6.html" rel="" target="">
+ <span class="dropdown-text">SESSION 6 - Data visualisation and Interpretation with Microreact</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../resources.html" rel="" target="">
+ <span class="dropdown-text">Resources</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">SESSION 6 - Data visualisation and Interpretation with Microreact</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="module-leads-julio-diaz-caballero-natacha-couto-georgina-lewis-woodhouse-emmanuelle-kumaran-nabil-fareed-alikhan-sophia-david-monica-abrudan" class="level3">
+<h3 class="anchored" data-anchor-id="module-leads-julio-diaz-caballero-natacha-couto-georgina-lewis-woodhouse-emmanuelle-kumaran-nabil-fareed-alikhan-sophia-david-monica-abrudan">Module Leads: Julio Diaz Caballero, Natacha Couto, Georgina Lewis-Woodhouse, Emmanuelle Kumaran, Nabil Fareed-Alikhan, Sophia David, Monica Abrudan</h3>
+<section id="based-on-the-exercise-developed-by-silvia-argimon" class="level4">
+<h4 class="anchored" data-anchor-id="based-on-the-exercise-developed-by-silvia-argimon"><strong><em>based on the exercise developed by Silvia Argimon</em></strong></h4>
+</section>
+</section>
+<section id="table-of-contents" class="level1">
+<h1>Table of contents</h1>
+<ul>
+<li><a href="#intro">Introduction</a></li>
+<li><a href="#learning-outcomes">Objectives</a></li>
+<li><a href="#interpret-genomes">Data visualisation and Interpretation with Microreact</a></li>
+<li><a href="#sign-in-to-microreact">Sign-in to Microreact</a></li>
+<li><a href="#web-colours">Web colours</a></li>
+<li><a href="#bonus-activities">Bonus activities</a></li>
+</ul>
+</section>
+<section id="intro" class="level1">
+<h1>Introduction</h1>
+<p>Microreact (https://microreact.org/) is a web-based application for the provision of interactive data visualisations. It enables the rapid generation and linkage of trees, maps, networks, charts and timelines, enabling epidemiologists and key decision makers to react faster and with greater accuracy. Microreact can be deployed securely on a local server, behind firewalls and adhering to local data governance. Users can make their Microreact projects findable on the network, or share them privately with another user by sharing a downloaded project or using secret links. Microreact projects for public consumption can be shared on the public Microreact site.</p>
+</section>
+<section id="learning-outcomes" class="level1">
+<h1>Objectives</h1>
+<p>At the end of this session the participants will be able to:</p>
+<ol type="1">
+<li>Visualise a tree, metadata, a timeline and a map using Microreact</li>
+<li>Use slices in Microreact</li>
+<li>Create Views in Microreact</li>
+<li>Interpret the results</li>
+</ol>
+</section>
+<section id="interpret-genomes" class="level1">
+<h1>Data visualisation and Interpretation with Microreact</h1>
+<p><code>https://microreact.org/</code></p>
+<p>Open the Microreact link in the output from data-flo. It should look something like this:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/New/Microreact_project.jpeg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>Now change the colour column to “Country”. Click on the eye icon at the top right of the page. Select “Country” from the <code>Colour Column</code> dropdown list.</p>
+<p><img src="img/New/microreact_colour.jpeg" class="img-fluid"></p>
+<p>Add a timeline by clicking on the pencil and select “Create New Timeline”. Select the placement for the timeline on your dashboard. Select “One column: Formatted Values” from the Temporal Data Type drop-down list. Finally select “collection_date in the temporal data column drop-down list.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/New/Microreact_add_timeline.jpeg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>Add Metadata blocks to your tree. Select the sliders icon, then the Metadata blocks and choose the variables you would like to explore.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/New/Microreact_metadata_blocks.jpeg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>Add a new view. On the right of your screen, click on the “view” button. When the view panel appears, click on the “plus” button.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/New/Microreact_add_view.jpeg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>The first view will be the current view you have. Right click on the menu of the new view and rename it. Click on the “plus” button and add another view. Rename it to “Nigeria” .</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/New/Microreact_views.jpeg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>Now use the data splicer to select a subset of data. To do so click on the pencil on the top right of the screen and select “Create new data splicer” from the drop-down menu. Position the panel on the screen and click on the “choose column” button. In the new window, select “country” from the data column drop down and click close. Click the Nigeria checkbox.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/New/Microreact_data_slicer.jpeg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>Readjust the map and tree panels to focus on the selected data. On the tree, right click on the branch with all the samples and select “view subtree”. Zoom the map to focus on Nigeria.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/New/Microreact_adjusted_view.jpeg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>Save changes to view by right clicking on the view and selecting the “Update view” option from the drop-down menu. Edits are not automatically saved, remember to save your edits before moving away from the view or you will lose them.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/New/Microreact_save_view.jpeg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>Add a new chart.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/New/Microreact_add_chart.jpeg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>After narrowing down to data from Nigeria, the colour column no longer provides useful information. Try changing it to a more informative column and experimenting with different colour palettes.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/New/microreact_colour_palette.png" class="img-fluid figure-img" width="413"></p>
+</figure>
+</div>
+</section>
+<section id="web-colours" class="level1">
+<h1>Web colours</h1>
+<p>Web colours are used on web pages, such as the microreact.org projects, and are usually specified in hexadecimal format preceded by ​​a number sign (or hashtag sign if you were born before the Jurassic period). For example, <code>#FFFFFF</code> is the hexadecimal code (or hex code) for the colour “white”, <code>#000000</code> is the hex code for the colour “black”, and <code>#FF00FF</code> is the hex code for the colour “magenta”. For more information on the format of the hexadecimal code see Wikipedia page <a href="https://en.wikipedia.org/wiki/Web_colors"><strong>https://en.wikipedia.org/wiki/Web_colors</strong></a></p>
+<p>Useful websites to work with web colours:</p>
+<section id="colorbrewer" class="level3">
+<h3 class="anchored" data-anchor-id="colorbrewer">ColorBrewer</h3>
+<p><a href="https://colorbrewer2.org/#type=sequential&amp;scheme=BuGn&amp;n=3"><strong>https://colorbrewer2.org/#type=sequential&amp;scheme=BuGn&amp;n=3</strong></a> Colour palettes for maps</p>
+</section>
+<section id="colorhexa" class="level3">
+<h3 class="anchored" data-anchor-id="colorhexa">ColorHexa</h3>
+<p><a href="https://www.colorhexa.com/"><strong>https://www.colorhexa.com/</strong></a> Get complementary colours, colour gradients, etc.</p>
+</section>
+<section id="coolors" class="level3">
+<h3 class="anchored" data-anchor-id="coolors">Coolors</h3>
+<p><a href="https://coolors.co/palettes/trending"><strong>https://coolors.co/palettes/trending</strong></a> Colour palette generator</p>
+</section>
+<section id="wes-anderson-colour-palettes" class="level3">
+<h3 class="anchored" data-anchor-id="wes-anderson-colour-palettes">Wes Anderson colour palettes</h3>
+<p><a href="https://github.com/karthik/wesanderson"><strong>https://github.com/karthik/wesanderson</strong></a> Hipster colour palettes inspired by Wes Anderson movies</p>
+</section>
+</section>
+<section id="bonus-activities" class="level1">
+<h1>Bonus activities</h1>
+<section id="create-a-microreact-project-using-a-metadata-in-csv-format-and-a-phylogenetic-tree." class="level3">
+<h3 class="anchored" data-anchor-id="create-a-microreact-project-using-a-metadata-in-csv-format-and-a-phylogenetic-tree.">1. Create a microreact project using a metadata in csv format and a phylogenetic tree.</h3>
+<ol type="a">
+<li>Click on the menu icon at the top left of the screen</li>
+</ol>
+<p><img src="img/microreact_menu_icon.png" width="40%" height="40%"></p>
+<ol start="2" type="a">
+<li>Click on <code>Upload</code></li>
+</ol>
+<p><img src="img/microreact_upload_option.png" width="30%" height="30%"></p>
+<ol start="3" type="a">
+<li>Click on the <code>+</code> symbol at the bottom right of the screen.</li>
+</ol>
+<p><img src="img/microreact_plus_icon.png" width="10%" height="10%"></p>
+<ol start="4" type="a">
+<li>Select <code>Browse Files</code></li>
+</ol>
+<p><img src="img/microreact_browse_files.png" width="20%" height="20%"></p>
+<ol start="5" type="a">
+<li><p>Choose the files <a href="https://drive.google.com/file/d/1R8nyAXNaiGIBL-2u30sD-W5Ajy-VNUeR/view?usp=drive_link"><code>tree.nwk</code></a> and <a href="https://drive.google.com/file/d/1J9n1bM_527OCWEq6_6XQf7sheE-XL8Ol/view?usp=drive_link"><code>epi_data.csv</code></a>, and click on the <code>Open</code> button (These files were downloaded in the <a href="#merge-data-with-data-flo">dataflo</a> section).</p></li>
+<li><p>Click on <code>Continue</code> in the next prompts.</p></li>
+<li><p>Your view will look like this:</p></li>
+</ol>
+<p><img src="img/microreact_bonus_view.png" width="30%" height="30%"></p>
+<ol start="8" type="a">
+<li>You can add a Timeline by clicking on the <code>pencil</code> icon at the top left of the screen, and clicking on <code>Create New Timeline</code></li>
+</ol>
+<p><img src="img/microreact_pencil_icon.png" width="50%" height="50%"></p>
+<ol type="i">
+<li>Then position the new panel by dragging the pointer to the bottom panel.</li>
+</ol>
+<p><img src="img/microreact_bottom_panel.png" width="50%" height="50%"></p>
+<ol start="10" type="a">
+<li>Finally, select “One column: Formatted Values” from the <code>Temporal Data Type</code> dropdown list, and “Collection Date” from the <code>Temporal Data Column</code> dropdown list. Click on <code>CLOSE</code></li>
+</ol>
+<p><img src="img/microreact_temp_data_type.png" width="50%" height="50%"></p>
+</section>
+<section id="create-a-microreact-project-from-a-google-spreadsheet" class="level2">
+<h2 class="anchored" data-anchor-id="create-a-microreact-project-from-a-google-spreadsheet">2. Create a Microreact project from a Google Spreadsheet</h2>
+<ol type="a">
+<li>Open this <a href="https://docs.google.com/spreadsheets/d/1DN6fyhHmmkgEU0Ml7Ep_y_2l_JpQZkBfmXZzEwRs70Y/edit?usp=sharing"><strong>Google spreadsheet</strong></a></li>
+</ol>
+<p><img src="img/bonus_original_spreadsheet.png" width="50%" height="50%"></p>
+<ol start="2" type="a">
+<li>Make a copy of this in your own Google account by selecting <code>Make a copy</code> from the <code>File</code> menu item. When prompted, click on <code>Make a copy</code>. This will open a separate tab where the copy will be available.</li>
+</ol>
+<p><img src="img/bonus_make_copy.png" width="30%" height="30%"></p>
+<p><img src="img/bonus_copy.png" width="30%" height="30%"></p>
+<ol start="3" type="a">
+<li>Set access to shareable by clicking on the <code>Share</code> button at the top right of the screen. A dialogue screen will pop up, here, click on the <code>Restricted</code> button, select <code>Anyone with the link</code>, and click on <code>Done</code></li>
+</ol>
+<p><img src="img/bonus_share.png" width="30%" height="30%"></p>
+<ol start="4" type="a">
+<li>Now to publish the google spreadsheet click on the <code>File</code> menu item, select <code>Share</code>, and click on <code>Publish on web</code></li>
+</ol>
+<p><img src="img/bonus_publish.png" width="30%" height="30%"></p>
+<ol start="5" type="a">
+<li>In the popup message click on <code>Web page</code>, and select <code>Comma-separated values (.csv)</code>. Also, make sure the <code>Automatically republish when changes are made</code> option is turned on under the <code>Published content and settings</code> section</li>
+</ol>
+<p><img src="img/bonus_csv.png" width="30%" height="30%"></p>
+<p><img src="img/bonus_auto_publish.png" width="30%" height="30%"></p>
+<ol start="6" type="a">
+<li>Confirm your choices in the popup message clicking on <code>OK</code>. This will provide more details about your Google spreadsheet, copy the url.</li>
+</ol>
+<p><img src="img/bonus_publish_sure.png" width="30%" height="30%"></p>
+<p><img src="img/bonus_link.png" width="30%" height="30%"></p>
+<ol start="7" type="a">
+<li>Go to <a href="https://microreact.org"><strong>microreact.org</strong></a>, and select <code>Upload</code> from the main menu.</li>
+</ol>
+<p><img src="img/bonus_upload.png" width="10%" height="10%"></p>
+<ol start="8" type="a">
+<li>Select the plus icon at the bottom right, and click on <code>Add URLs</code></li>
+</ol>
+<p><img src="img/bonus_add_url.png" width="30%" height="30%"></p>
+<ol type="i">
+<li>Paste the url from step <em>f</em> and select <code>Data (CSV or TSV)</code> under <code>File kind</code>. Finally click on <code>CONTINUE</code> to see your microreact.</li>
+</ol>
+<p><img src="img/bonus_add_files.png" width="30%" height="30%"></p>
+<ol start="10" type="a">
+<li>You should get a screen like this!</li>
+</ol>
+<p><img src="img/bonus_final_mr.png" width="30%" height="30%"></p>
+<p><strong><em>The materials provided in this repository are FREE to use.</em></strong> <strong><em>This work is licensed under a Creative Commons Attribution 4.0 International License. Reuse is encouraged with acknowledgement.</em></strong></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">This work is licensed under a Creative Commons Attribution 4.0 International License. Reuse is encouraged with acknowledgement</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/TheCGPS">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

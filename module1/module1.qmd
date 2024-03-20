@@ -1,0 +1,19 @@
+---
+title: "SESSION 1 - Digital Epidemiologist's Toolbox - theory"
+---
+
+### Module Leads: Georgina Lewis-Woodhouse, Emmanuelle Kumaran and Monica Abrudan
+
+The aim of this module is to introduce you to the Digital Epidemiologist's toolbox.
+
+### The goals of the session will be: 
+
+-   Be able to identify Stakeholders and, their interactions and engagements 
+
+-   Be able to describe System Architecture
+
+-   Be able to describe Data Architecture
+
+-   Be able to understand and perform a Gap analysis
+
+You can find the material for this session at the following [link](https://docs.google.com/presentation/d/1Ds0h0LQCtMpDzc9c5G9vkTiiEAXbbVS_3sVgX-BnYlA/edit#slide=id.g2bc6efdcd34_0_89)

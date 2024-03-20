@@ -1,0 +1,13 @@
+---
+title: "Resources"
+---
+
+Here you can find other Resources that are useful:
+
+<https://mmbdtp.github.io/modules/sequencing/file-formats/>
+
+<https://training.nextflow.io/basic_training/>
+
+<https://www.protocols.io/view/ghru-genomic-surveillance-of-antimicrobial-resista-bp2l6b11kgqe/v4>
+
+<https://gitlab.com/cgps/ghru/pipelines/assembly>

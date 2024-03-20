@@ -1,0 +1,22 @@
+﻿sample_id,City,Hospital,Ward,Collection Date,Source,Infection Type,Sex,Age (in days)
+NICU-1,Ibadan,University College Hospital,NICU,12/12/2020,Clinical,Bloodstream,M,10
+NICU-2,Ibadan,University College Hospital,NICU,15/12/2020,Clinical,Bloodstream,M,12
+NICU-3,Ibadan,University College Hospital,NICU,20/12/2020,Clinical,Bloodstream,F,15
+NICU-4,Ibadan,University College Hospital,NICU,23/12/2020,Carriage,Faecal,M,20
+NICU-5,Ibadan,University College Hospital,NICU,23/12/2020,Carriage,Faecal,M,22
+NICU-6,Ibadan,University College Hospital,NICU,23/12/2020,Carriage,Faecal,F,18
+NICU-7,Ibadan,University College Hospital,NICU,23/12/2020,Carriage,Faecal,F,21
+NICU-8,Ibadan,University College Hospital,NICU,23/12/2020,Carriage,Faecal,M,17
+NICU-9,Ibadan,University College Hospital,NICU,23/12/2020,Environmental,Sink,NA,NA
+NICU-10,Ibadan,University College Hospital,NICU,23/12/2020,Environmental,Shower,NA,NA
+NICU-11,Ibadan,University College Hospital,NICU,23/12/2020,Environmental,Bench,NA,NA
+NICU-12,Ibadan,University College Hospital,NICU,23/12/2020,Environmental,Floor,NA,NA
+NICU-13,Ibadan,University College Hospital,NICU,23/12/2020,Environmental,Bed rail,NA,NA
+NICU-14,Ibadan,University College Hospital,NICU,23/12/2020,Environmental,Bed sheet,NA,NA
+NICU-15,Ibadan,University College Hospital,NICU,23/12/2020,Environmental,Toilet,NA,NA
+NICU-16,Ibadan,University College Hospital,NICU,23/12/2020,Environmental,Formula Prep Room,NA,NA
+NICU-17,Ibadan,University College Hospital,NICU,23/12/2020,Environmental,Clean Supply Room,NA,NA
+NICU-18,Ibadan,University College Hospital,NICU,23/12/2020,Environmental,Meds Room,NA,NA
+NICU-19,Ibadan,University College Hospital,NICU,23/12/2020,Environmental,Clean Assembly Room,NA,NA
+NICU-20,Ibadan,University College Hospital,NICU,23/12/2020,Carriage,Faecal,F,24
+NICU-21,Ibadan,University College Hospital,NICU,23/12/2020,Carriage,Faecal,F,25

@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Pathogen Genomics Week - March 2024 - SESSION 3 - Introduction to Trimming, Assembly and QC</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../img/cgps.jpg" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Pathogen Genomics Week - March 2024</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../agenda.html" rel="" target="">
+ <span class="menu-text">Agenda</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../Syllabus.html" rel="" target="">
+ <span class="menu-text">Digital Epidemiology</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../bioinformatics.html" rel="" target="">
+ <span class="menu-text">Bioinformatics</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-training-materials" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Training materials</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-training-materials">    
+        <li>
+    <a class="dropdown-item" href="../module1/module1.html" rel="" target="">
+ <span class="dropdown-text">SESSION 1 - Digital Epidemiologist’s Toolbox - theory</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../module2/module2.html" rel="" target="">
+ <span class="dropdown-text">SESSION 2 - Introduction to the CGPS tools</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../module3/module3.html" rel="" target="">
+ <span class="dropdown-text">SESSION 3 - Introduction to Trimming, Assembly and QC</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../module4/module4.html" rel="" target="">
+ <span class="dropdown-text">SESSION 4 - Genome Analysis with Pathogenwatch</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../module5/module5.html" rel="" target="">
+ <span class="dropdown-text">SESSION 5 - Data integration with Data-flo</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../module6/module6.html" rel="" target="">
+ <span class="dropdown-text">SESSION 6 - Data visualisation and Interpretation with Microreact</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../resources.html" rel="" target="">
+ <span class="dropdown-text">Resources</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">SESSION 3 - Introduction to Trimming, Assembly and QC</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="module-leads-julio-diaz-caballero-natacha-couto-georgina-lewis-woodhouse-emmanuelle-kumaran-nabil-fareed-alikhan-sophia-david-monica-abrudan" class="level3">
+<h3 class="anchored" data-anchor-id="module-leads-julio-diaz-caballero-natacha-couto-georgina-lewis-woodhouse-emmanuelle-kumaran-nabil-fareed-alikhan-sophia-david-monica-abrudan">Module Leads: Julio Diaz Caballero, Natacha Couto, Georgina Lewis-Woodhouse, Emmanuelle Kumaran, Nabil Fareed-Alikhan, Sophia David, Monica Abrudan</h3>
+<section id="based-on-the-exercise-developed-by-silvia-argimon" class="level4">
+<h4 class="anchored" data-anchor-id="based-on-the-exercise-developed-by-silvia-argimon"><strong><em>based on the exercise developed by Silvia Argimon</em></strong></h4>
+</section>
+</section>
+<section id="table-of-contents" class="level1">
+<h1>Table of contents</h1>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#learning-outcomes">Objectives</a></li>
+<li><a href="#obtain-high-quality-assemblies">Trim, assemble and QC with GHRU Nextflow pipeline</a></li>
+<li><a href="#bonus-materials">Bonus material</a></li>
+</ul>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p><em>Note: This exercise is a work of fiction. Any resemblance to a real life situation is purely coincidental.</em></p>
+<p>In December 2020, three cases of primary bloodstream infections sustained by ertapenem-resistant <em>Klebsiella pneumoniae</em> were observed over a two-week period in the neonatal intensive care unit (NICU) at the University College Hospital in Ibadan, Oyo State. This NICU consists of a 15-bed tertiary level ward. Since the detection of these infections, faecal screening of all admitted neonates was performed. Additionally, ten samples from the environment were collected. The epidemiological and demographic data is summarised in the file <a href="data/epi_data.csv">epi_data.csv</a>.</p>
+<p><img src="img/unit.png" width="70%" height="70%"><br> Plan of the NICU. Locations of sample collection is indicated with light blue circles. <br><br></p>
+<p>The reference lab sent you the culture results from the faecal, bloodstream, and environmental sampling in an Excel file called (<a href="data/lab_results.xlsx"><code>lab_results.xlsx</code></a>). Faecal screening of the admitted neonates, revealed that <strong>five other neonates</strong> were carriers of <em>K. pneumoniae</em>. Also, the lab reported that <strong>2 out of 10</strong> environmental samples were positive for <em>K. pneumoniae</em>. <strong>This immediately prompted the closure of 1 room.</strong></p>
+<p>One colony from each confirmed case and from each of the two positive environmental samples were sent to the GHRU-Ibadan unit for sequencing.</p>
+<p>It is now up to you to investigate the possibility of an outbreak of <em>K. pneumoniae</em> in the neonatal unit using the raw sequencing data, the GHRU assembly pipeline, Pathogenwatch, data-flo and Microreact, free web applications developed by the Centre for Genomic Pathogen Surveillance for data analyses, integration and visualisation.</p>
+</section>
+<section id="learning-outcomes" class="level1">
+<h1>Objectives</h1>
+<p>At the end of this session the participants will be able to:</p>
+<ol type="1">
+<li>Trim, assemble and QC with GHRU Nextflow pipeline</li>
+<li>Obtain high quality assemblies for downstream analysis</li>
+<li>Identify and discard low quality genomes</li>
+<li>Determine the probable cause of issues during sequencing and assembly</li>
+</ol>
+</section>
+<section id="obtain-high-quality-assemblies" class="level1">
+<h1>Trim, assemble and QC with GHRU Nextflow pipeline</h1>
+<p>GHRU Nextflow pipeline can be used to process short read fastq files an assembly pipeline using the SPAdes assembler. Alongside this it will QC the reads before and after trimming and QC the final assembled scaffolds file using Quast. The pipeline was based on Shovill (Thanks to Torsten Seemann <span class="citation" data-cites="torstenseemann">@torstenseemann</span>): https://github.com/tseemann/shovill</p>
+<p>This pipeline automates a number of key steps in the complex process of genome assembly.</p>
+<section id="hardware" class="level2">
+<h2 class="anchored" data-anchor-id="hardware">Hardware</h2>
+<p>For this exercise you will use our pre configured bioinformatics servers. Connecting to our bioinformatics servers ensure the computational resources required for the assembly process are available. If you wish to run through this module on another platform, you will need to install the required software and download the sample data yourself. The pipeline we will be using is available here <code>https://gitlab.com/cgps/ghru/pipelines/dsl2/pipelines/assembly</code>.</p>
+<p>To connect to our bioinformatics servers, follow the instructions below. Replace <code>user</code> with your username with the name of the server you want to connect to. You will need to enter your password when prompted. Your password will be provided to you by one of the instructors:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Connect to the server</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> user@159.65.95.44</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">Data</h2>
+<p>You will find 11 sets of paired-end Illumina reads in the <code>/data/</code>. Thus, this directory will contain 22 fastq files (two per genome). You can check the data is actually there:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the contents of the /data/ directory</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> /data/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The <code>/data</code> directory will serve as the input directory for the GHRU assembly pipeline. You can practice fetching the data from a remote location such as Figshare, ENA or SRA following the instructions in the <a href="#fetching-data">fetching data</a> bonus section.</p>
+</section>
+<section id="software" class="level2">
+<h2 class="anchored" data-anchor-id="software">Software</h2>
+<p>The assembly process pipeline will process each pair of Illumina short-read fastq files and assemble them using the <a href="https://github.com/ablab/spades">SPAdes assembler</a>. Along the assembly process, the workflow will perform quality control checks and filters. The workflow consists of the following steps:</p>
+<ul>
+<li>QC reads using FastQC before trimming</li>
+<li>Trim reads using <a href="http://www.usadellab.org/cms/?page=trimmomatic">Trimmomatic</a> and Cutadapt (if <code>--cutadapt</code> specified)</li>
+<li>QC reads using <a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC</a> after trimming</li>
+<li>Correct reads using lighter</li>
+<li>Check for contamination using confindr</li>
+<li>Count number of reads and estimate genome size using Mash</li>
+<li>Downsample reads if the <code>--depth_cutoff</code> argument was specified</li>
+<li>Merge reads using Flash where the insert size is small</li>
+<li>Assemble reads using SPAdes (by default the <code>--careful</code> option is turned off)</li>
+<li>Assess species identification using bactinspector</li>
+<li>Assess assembly quality using <a href="http://quast.sourceforge.net/">QUAST</a></li>
+<li>Summarise all assembly QCs using <a href="http://quast.sourceforge.net/">QUAST</a></li>
+<li>(Optional if QuailFyr qc conditions YAML file is supplied). Filter assemblies into three directories: pass, warning and failure based on QC metrics</li>
+</ul>
+<p><img src="img/assembly_pipeline_processes.png" width="70%" height="70%"><br> A sumamry of this process is shown above <br><br></p>
+<p>Nextflow is already installed in our bioinformatics servers, and the assembly pipeline can be found in <code>/opt/ghru-assembly</code>. Let’s check that nextflow is installed and that we can find the assembly pipeline:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check that nextflow is installed</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">nextflow</span> <span class="at">-v</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the assembly pipeline can be found at /opt/ghru-assembly directory</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> /opt/ghru-assembly</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Nextflow should be preconfigured for you, but if you want to try this on another platform you will need too install <code>nextflow</code> and assembly pipeline. You can install them by following the instructions in the <a href="#install-nextflow">install nextflow</a> or <a href="#install-pipeline">install pipeline</a> bonus sections.</p>
+</section>
+<section id="implementation" class="level2">
+<h2 class="anchored" data-anchor-id="implementation">Implementation</h2>
+<p>First we need to create a directory to store the assemblies. We will call this directory <code>results</code>. You can create this directory with the following command, replace <code>user</code> with your username:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the results directory</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> /workshop/user/results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Next, let’s create a directory to store the implementation scripts and the working directory. We will call this directory <code>scripts</code>. You can create this directory with the following command, replace <code>user</code> with your username:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the scripts directory</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> /workshop/user/scripts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now we create a script to run the assembly pipeline. You can create a file called <code>assembly.sh</code> in the <code>scripts</code> directory using a text editor such as <code>nano</code> or <code>vim</code>. You can copy and paste the following code into the file and save it:</p>
+<p>Please change the output directory in line with your username.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="va">NEXTFLOW_WORKFLOWS_DIR</span><span class="op">=</span><span class="st">'/opt/ghru-assembly'</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="va">INPUT_DIR</span><span class="op">=</span><span class="st">'/data'</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="va">OUTPUT_DIR</span><span class="op">=</span><span class="st">'/workshop/user/results'</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="ex">nextflow</span> run <span class="va">${NEXTFLOW_WORKFLOWS_DIR}</span>/main.nf <span class="dt">\</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">--adapter_file</span> adapters.fas <span class="dt">\</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">--qc_conditions</span> qc_conditions_nextera_relaxed.yml <span class="dt">\</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">--input_dir</span> <span class="va">${INPUT_DIR}</span> <span class="dt">\</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">--fastq_pattern</span> <span class="st">'*{R,_}{1,2}.f*q.gz'</span> <span class="dt">\</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">--output_dir</span> <span class="va">${OUTPUT_DIR}</span> <span class="dt">\</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">--depth_cutoff</span> 100 <span class="dt">\</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">--prescreen_file_size_check</span> 12 <span class="dt">\</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">--careful</span> <span class="dt">\</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">--kmer_min_copy</span> 3 <span class="dt">\</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">-w</span> <span class="va">${OUTPUT_DIR}</span>/work <span class="dt">\</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">-resume</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Finally, you can run the assembly pipeline by executing the script, replace <code>user</code> with your username:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the assembly pipeline</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> /workshop/user/scripts/assembly.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
+<p>The assembly pipeline will create six directories in the <code>assemblies</code> directory, replace <code>user</code> with your username.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the contents of the /results directory</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> /workshop/user/results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You will find the fasta-formatted assemblies in the <code>assemblies</code> directory. There, you will find <code>pass</code>, <code>warning</code>, and <code>failure</code> directories containing the assemblies according to their quality. You can check the contents of the <code>assemblies</code> directory, replace <code>user</code> with your username:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the contents of the /results/assemblies directory </span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> /workshop/user/results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Additonally you will find the <code>quality_reports</code> directory containing the quality control reports for the assemblies. You can check the contents of the <code>quality_reports</code> directory, replace <code>user</code> with your username:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the contents of the /results/quality_reports directory</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> /workshop/user/results/quality_reports</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You may want to import the quality report (<code>results/quality_reports/qualifyr_report.tsv</code>) to your local machine so as to explore whether the assemblies are of high quality or not. You can use the <code>scp</code> command to do this, replace <code>user</code> with your username:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy the quality report to your local machine</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> user@159.65.95.44:/workshop/user/results/quality_reports/qualifyr_report.tsv /path/to/local/machine</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You will be prompted for your password. You can use the same command to copy the assemblies to your local machine (hint: <code>scp -r</code> helps you move an entire directory).</p>
+</section>
+<section id="other-workflow-outputs" class="level2">
+<h2 class="anchored" data-anchor-id="other-workflow-outputs">Other workflow outputs</h2>
+<p>There is a great deal of other outputs produced by the pipeline. These will be found in the directory specified by the <code>--output_dir</code> argument. In this case, <code>/workshop/user/results/</code></p>
+<ul>
+<li>A directory called fastqc/post_trimming that contans the Fastqc reports for each fastq in html format after trimming</li>
+<li>A directory called assemblies containing the final assembled scaffold files named as <sample name="">_scaffolds.fasta. If the qc_conditions argument was given there will be subdirectories named pass, warning and failure where the appropiately QCed scaffolds and failure reasons will be stored.</sample></li>
+<li>A directory called quast containing:
+<ul>
+<li>A summary quast report named combined_quast_report.tsv</li>
+<li>A transposed summary quast report with the samples as rows so that they can be sorted based on the quast metric in columns named combined_quast_report.tsv</li>
+</ul></li>
+<li>A directory called quality_reports containing html reports
+<ul>
+<li>MultiQC summary reports combining QC results for all samples from
+<ul>
+<li>FastQC: fastqc_multiqc_report.html</li>
+<li>Quast: quast_multiqc_report.html</li>
+</ul></li>
+<li>QualiFyr reports. If a qc_conditions.yml file was supplied reports will be generated that contain a summary of the overall pass/fail status of each sample.
+<ul>
+<li>qualifyr_report.html : e.g QualiFyr Report</li>
+<li>qualifyr_report.tsv</li>
+</ul></li>
+</ul></li>
+<li>if the –full_output parameter is given then the following will also be available in the output directory
+<ul>
+<li>A directory called fastqc/pre_trimming that contans the Fastqc reports for each fastq in html format prior to trimming</li>
+<li>A directory called corrected_fastqs that contains the fastq files that have been trimmed with Trimmomatic and corrected using Lighter</li>
+<li>If using paired end reads, a directory called merged_fastqs that contains the fastq files that have been merged using Flash. There will be a files called
+<ul>
+<li><sample name="">.extendedFrags.fastq.gz merged reads</sample></li>
+<li><sample name="">.notCombined_1.fastq.gz unmerged read 1 reads</sample></li>
+<li><sample name="">.notCombined_2.fastq.gz unmerged read 2 reads</sample></li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="bonus-material" class="level1">
+<h1>Bonus Materials</h1>
+<section id="fetching-data" class="level2">
+<h2 class="anchored" data-anchor-id="fetching-data">Fetching data</h2>
+<p>You can use tools such as <code>wget</code> or <code>curl</code> to fetch data from a remote location such as Figshare, ENA or SRA. For example, you can fetch the data from the following Figshare link:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fetch the data from Figshare</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://figshare.com/ndownloader/articles/25266367/versions/1 <span class="at">-O</span> /data/fastqs.zip</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Unzip the data</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">unzip</span> /data/fastqs.zip <span class="at">-d</span> /data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="install-nextflow" class="level2">
+<h2 class="anchored" data-anchor-id="install-nextflow">Install nextflow</h2>
+<p>To install Nextflow, a tool for orchestrating scientific workflows, follow these steps:</p>
+<p>Nextflow requires Java to be installed on your system. Make sure you have Java Development Kit (JDK) version 8 or later installed. You can check if Java is installed by running <code>java -version</code> in your terminal or command prompt.</p>
+<p>Then enter this command in your terminal:</p>
+<pre><code>curl -s https://get.nextflow.io | bash</code></pre>
+<p>It creates a file nextflow in the current dir. Visit the <a href="https://www.nextflow.io/">nextflow website for more details</a>.</p>
+</section>
+<section id="install-pipeline" class="level2">
+<h2 class="anchored" data-anchor-id="install-pipeline">Install assembly pipeline</h2>
+<p>To install the assembly pipeline, you can clone the repository from the following link:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Clone the assembly pipeline</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://gitlab.com/cgps/ghru/pipelines/assembly.git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You will also need docker installed.</p>
+</section>
+<section id="full-list-of-software-used" class="level2">
+<h2 class="anchored" data-anchor-id="full-list-of-software-used">Full list of software used</h2>
+<p>Software used within the workflow:</p>
+<ul>
+<li>FastQC A quality control tool for high throughput sequence data.</li>
+<li>Trimmomatic A flexible read trimming tool for Illumina NGS data.</li>
+<li>Cutadapt Finds and removes adapter sequences, primers, poly-A tails and other types of unwanted sequence from high-throughput sequencing reads</li>
+<li>mash Fast genome and metagenome distance estimation using MinHash.</li>
+<li>lighter Fast and memory-efficient sequencing error corrector.</li>
+<li>seqtk A fast and lightweight tool for processing sequences in the FASTA or FASTQ format.</li>
+<li>FLASH (Fast Length Adjustment of SHort reads) A very fast and accurate software tool to merge paired-end reads from next-generation sequencing experiments.</li>
+<li>SPAdes A genome assembly algorithm designed for single cell and multi-cells bacterial data sets.</li>
+<li>contig-tools A utility Python package to parse multi fasta files resulting from de novo assembly.</li>
+<li>Quast A tool to evaluate the aulaity of genome assemblies.</li>
+<li>ConFindr Software that can detect contamination in bacterial NGS data, both between and within species.</li>
+<li>QualiFyr Software to give an overall QC status for a sample based on multiple QC metric files</li>
+<li>MultiQC Aggregate results from bioinformatics analyses across many samples into a single report</li>
+<li>KAT The K-mer Analysis Toolkit (KAT) contains a number of tools that analyse and compare K-mer spectra</li>
+<li>BactInspector Software using an updated refseq mash database to predict species</li>
+</ul>
+<p><strong><em>The materials provided in this repository are FREE to use.</em></strong> <strong><em>This work is licensed under a Creative Commons Attribution 4.0 International License. Reuse is encouraged with acknowledgement.</em></strong></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">This work is licensed under a Creative Commons Attribution 4.0 International License. Reuse is encouraged with acknowledgement</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/TheCGPS">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

@@ -1,0 +1,50 @@
+project:
+  type: website
+
+website:
+  title: "Pathogen Genomics Week - March 2024"
+  navbar:
+    logo: /img/cgps.jpg
+    left:
+      - href: index.qmd
+        text: Home
+      - href: agenda.qmd
+        text: Agenda
+      - href: Syllabus.qmd
+        text: Digital Epidemiology
+      - href: bioinformatics.qmd
+        text: Bioinformatics
+      - text: Training materials
+        menu:
+          - module1/module1.qmd
+          - module2/module2.qmd
+          - module3/module3.qmd
+          - module4/module4.qmd
+          - module5/module5.qmd
+          - module6/module6.qmd
+          - resources.qmd
+
+
+  page-footer: 
+    left: "This work is licensed under a Creative Commons Attribution 4.0 International License. Reuse is encouraged with acknowledgement" 
+    right: 
+      - icon: twitter 
+        href: https://twitter.com/TheCGPS
+
+
+format:
+  html:
+    theme:
+      light: [materia, theme-light.scss]
+      dark: [materia, theme-dark.scss]
+    anchor-sections: true
+
+editor: visual
+
+execute:
+  freeze: auto
+  
+sidebar:
+  contents: auto
+
+link-external-newwindow: true
