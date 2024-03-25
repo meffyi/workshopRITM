@@ -2,6 +2,6 @@
 title: "Agenda"
 ---
 
-The detailed agenda can be found [here](https://docs.google.com/document/d/1ccSbHb8QIDwbDwHtLyLSch2fQrQ92a10pVIGtL2jcjU/edit?usp=sharing).
+The detailed agenda can be found [here](https://drive.google.com/file/d/1KsIHI07GyVDnWRLvlHMoHkUBJr7kb6Uy/view?usp=sharing).
 
-![](img/agenda.png){width="80%"}
+![](img/workshop flow.jpg){width="100%"}

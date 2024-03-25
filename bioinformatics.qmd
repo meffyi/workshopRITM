@@ -12,21 +12,13 @@ The job of a genomic epidemiologist often starts by combining data from diverse 
 
 The [**Centre for Genomic Pathogen Surveillance**](https://www.pathogensurveillance.net/our-software/) develops free web applications for data collection, integration, visualisation, and analysis of genomic epidemiology data. [**Epicollect5**](https://five.epicollect.net/) is a mobile & web application for free and easy data collection. It provides both the web and mobile applications for the generation of forms (questionnaires) and freely hosted project websites for data collection. Projects are created by using the web application at [five.epicollect.net](five.epicollect.net), and then downloaded to the device to perform the data collection. Data are collected in the field using multiple devices and all data can be viewed on a central server (via map, tables, and charts). [**Data-flo**](https://data-flo.io/) is a system for customised integration and manipulation of diverse data via a simple drag and drop interface. Data-flo provides a visual method to design a reusable pipeline to integrate, clean, and manipulate data in a multitude of ways, eliminating the need for continuous manual intervention (e.g., coding, formatting, spreadsheet formulas, manual copy-pasting). [**Microreact**](https://microreact.org/) allows you to upload, visualise and explore any combination of clustering (trees), geographic (map) and temporal (timeline) data. Other metadata variables are displayed in a table. You can specify colours and/or shapes to display on the map, tree and/or timeline. A permanent URL is produced for you to share your Microreact.
 
-### Targeted competencies and Knowledge, Skills and Attitudes
-
--   Bioinformatics tools
-
--   From fastq to report
-
--   Integrated skills: Scripting, Visualising, Interpreting
-
 ### Training Methods and Instructional Strategies
 
 -   Discussions, hands-on activities
 
 ### Duration of training
 
--   Two and half days (17h total)
+-   10 hours
 
 ### Resources
 

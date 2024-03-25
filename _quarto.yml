@@ -13,16 +13,17 @@ website:
       - href: Syllabus.qmd
         text: Resource Speakers
       - href: bioinformatics.qmd
-        text: Bioinformatics and Digital Epidemiology
+        text: Concept Overview
+      - text: Module
+        menu:
+          - Unit 1- ARSRL SaTScan and Whole Genome Sequencing Enhanced Outbreak Investigation Protocol.qmd
+          - Unit 2- Digital Epidemiology Tool- EPICOLLECT.qmd
+          - Unit 3- Digital Epidemiology Tool- PATHOGENWATCH.qmd
+          - Unit 4- Digital Epidemiology Tool- MICROREACT.qmd
       - text: Workshop Materials
         menu:
-          - module1/module1.qmd
-          - module2/module2.qmd
-          - module3/module3.qmd
-          - module4/module4.qmd
-          - module5/module5.qmd
-          - module6/module6.qmd
-          - Pre-Test/Post-Test.qmd
+          - Pre-Test.qmd
+          - Post-Test.qmd
           - Workshop Evaluation.qmd
       - href: Syllabus.qmd 
         text: Got a question?
