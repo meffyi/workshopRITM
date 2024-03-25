@@ -1,0 +1,25 @@
+---
+title: "UNIT 2 - Digital Epidemiology Tool: EPICOLLECT"
+---
+
+### OUTLOOK:
+
+At the end of this unit, the participants shall be able to:
+
+
+
+```         
+ recognize the rationale of the conduct of the outbreak investigation    protocol; and    
+```
+
+enumerate the steps of the ARSRL outbreak investigation protocol.
+
+### Investigation Objectives:
+
+-   Be able to identify Stakeholders and, their interactions and engagements 
+
+-   Be able to describe System Architecture
+
+-   Be able to describe Data Architecture
+
+-   Be able to understand and perform a Gap analysis

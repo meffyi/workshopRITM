@@ -1,17 +1,31 @@
 ---
-title: "SESSION 1 - Digital Epidemiologist's Toolbox - theory"
+title: "UNIT 1 - ARSRL SaTScan and Whole Genome Sequencing Enhanced Outbreak Investigation Protocol"
 ---
 
-### Module Leads:
+### OUTLOOK:
 
-The aim of this module is to introduce you to the Digital Epidemiologist's toolbox.
+Unit 1 describes the rationale and steps on the conduct of outbreak investigation of ARSRL featuring the SaTScan software of WHONET and Whole Genome Sequencing. At the end of this unit, the participants shall be able to:
 
-### The goals of the session will be:
+-   recognize the rationale of the conduct of the outbreak investigation protocol; and
 
--   Be able to identify Stakeholders and, their interactions and engagements 
+-   enumerate the steps of the ARSRL outbreak investigation protocol.
 
--   Be able to describe System Architecture
+### Investigation Objectives:
 
--   Be able to describe Data Architecture
+-   General Objective
 
--   Be able to understand and perform a Gap analysis
+    -   To utilize WGS to investigate clustering of isolates detected in sentinel sites.
+
+-   Specific Objectives
+
+    -   To detect clustering of isolates in the sentinel sites through any of the following route:
+
+        §  Using WHONET SaTScan
+
+        §  Alerts from site laboratory personnel
+
+        §  Alerts from site IPCC
+
+    -   To perform whole genome sequencing on isolates included in select clusters detected and verified through SaTScan.
+
+    -   To evaluate the genomic characteristics of isolates in a cluster to confirm the occurrence of an outbreak.
