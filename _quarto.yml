@@ -10,7 +10,7 @@ website:
         text: Home
       - href: agenda.qmd
         text: Agenda
-      - href: Syllabus.qmd
+      - href: Resource Speakers.qmd
         text: Resource Speakers
       - href: bioinformatics.qmd
         text: Concept Overview
