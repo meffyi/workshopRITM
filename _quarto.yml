@@ -25,7 +25,7 @@ website:
           - Pre-Test.qmd
           - Post-Test.qmd
           - Workshop Evaluation.qmd
-      - href: Syllabus.qmd 
+      - href: FAQs.qmd 
         text: Got a question?
 
 
